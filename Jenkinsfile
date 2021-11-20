@@ -65,7 +65,7 @@ pipeline{
             //         message "Deploy to Dev?"
             //     }
             steps{
-                withKubeConfig() {
+                withKubeConfig([credentialsId: 'user1']) {
                     sh 'kubectl apply -f deployment.yaml'
                 }
             }
