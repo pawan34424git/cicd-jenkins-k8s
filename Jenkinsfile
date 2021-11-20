@@ -50,19 +50,19 @@ pipeline{
             steps {
               
               sh 'docker build -t "my-image:${IMAGE_TAG}" .'
-              sh 'docker tag "my-image:${IMAGE_TAG}" testjfrogd.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
-              sh 'docker push testjfrogd.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+              sh 'docker tag "my-image:${IMAGE_TAG}" pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+              sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
             }
         }
 
-        stage('Push Image') {
-            steps {
-                withDockerRegistry([ credentialsId: "gcr:abstract-stream-316904", url: "https://asia.gcr.io/abstract-stream-316904" ]) {
-                sh 'docker tag my-image:${IMAGE_TAG} ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
-                sh 'docker push ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
-                }
-                }
-            }
+        // stage('Push Image') {
+        //     steps {
+        //         withDockerRegistry([ credentialsId: "gcr:abstract-stream-316904", url: "https://asia.gcr.io/abstract-stream-316904" ]) {
+        //         sh 'docker tag my-image:${IMAGE_TAG} ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+        //         sh 'docker push ${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}'
+        //         }
+        //         }
+        //     }
         
         stage('Deploy Dev') {
             input{
