@@ -11,9 +11,9 @@ pipeline{
         stage ('Artifactory Configuration') {
             steps {
                 rtServer (
-                    id: "https://testjfrogd.jfrog.io/",
-                    url: "https://testjfrogd.jfrog.io/",
-                    credentialsId: "e7c71781-bf24-4c0d-9256-72921cd4d813"
+                    id: "https://pawankumar34424.jfrog.io/",
+                    url: "https://pawankumar34424.jfrog.io/",
+                    credentialsId: "a69e5c17-641b-4e43-83dc-eecf9bea8be0"
                 )
                  rtMavenResolver (
                     id: 'maven-resolver',
