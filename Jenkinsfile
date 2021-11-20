@@ -54,11 +54,11 @@ pipeline{
         //     }
         // }
 
-        stage('Push Image') {
-            steps {
-                sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
-            }
-        }
+        // stage('Push Image') {
+        //     steps {
+        //         sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+        //     }
+        // }
 
         stage('Deploy Dev') {
             input{
