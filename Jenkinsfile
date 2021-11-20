@@ -10,7 +10,6 @@ pipeline{
         maven 'maven' 
         jdk 'JDK8' 
         dockerTool 'docker'
-        kubectl 'kubectl'
     }
 
     stages {
