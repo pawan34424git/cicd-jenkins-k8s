@@ -56,7 +56,6 @@ pipeline{
 
         stage('Push Image') {
             steps {
-                sh 'which docker'
                 sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
             }
         }
@@ -66,14 +65,7 @@ pipeline{
                     message "Deploy to Dev?"
                 }
             steps{
-                git url: 'https://github.com/satyakumr/java-cobrand-demo/'
-                step([$class: 'KubernetesEngineBuilder', 
-                        projectId: "abstract-stream-316904",
-                        clusterName: "marriot-demo",
-                        zone: "asia-south1-a",
-                        manifestPattern: 'k8s/',
-                        credentialsId: "k8s-jenkins",
-                        verifyDeployments: false])
+                sh 'kubectl apply -f deployment.yaml'
             }
         }
     }
