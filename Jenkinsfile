@@ -6,6 +6,11 @@ pipeline{
         IMAGE_TAG = 'jenkins'
     }
 
+    tools { 
+        maven 'maven' 
+        jdk 'JDK8' 
+    }
+
     stages {
         
         stage ('Artifactory Configuration') {
