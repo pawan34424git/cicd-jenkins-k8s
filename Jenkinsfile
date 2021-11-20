@@ -10,6 +10,7 @@ pipeline{
         maven 'maven' 
         jdk 'JDK8' 
         dockerTool 'docker'
+        kubectl 'kubectl'
     }
 
     stages {
@@ -61,9 +62,9 @@ pipeline{
         // }
 
         stage('Deploy Dev') {
-            input{
-                    message "Deploy to Dev?"
-                }
+            // input{
+            //         message "Deploy to Dev?"
+            //     }
             steps{
                 sh 'kubectl apply -f deployment.yaml'
             }
