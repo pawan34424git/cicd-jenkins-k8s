@@ -65,7 +65,9 @@ pipeline{
             //         message "Deploy to Dev?"
             //     }
             steps{
-                sh 'kubectl apply -f deployment.yaml'
+                withKubeConfig() {
+                    sh 'kubectl apply -f deployment.yaml'
+                }
             }
         }
     }
