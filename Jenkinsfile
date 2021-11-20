@@ -39,23 +39,24 @@ pipeline{
             }
         }
 
-        stage('Maven build') {
-            steps {
-                sh "mvn -Dmaven.test.skip=true clean install"
-            }
-        }
+        // stage('Maven build') {
+        //     steps {
+        //         sh "mvn -Dmaven.test.skip=true clean install"
+        //     }
+        // }
 
-        stage('Build Image') {
-            steps {
+        // stage('Build Image') {
+        //     steps {
 
-                sh 'docker build -t "my-image:${IMAGE_TAG}" .'
-                sh 'docker tag "my-image:${IMAGE_TAG}" pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+        //         sh 'docker build -t "my-image:${IMAGE_TAG}" .'
+        //         sh 'docker tag "my-image:${IMAGE_TAG}" pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
 
-            }
-        }
+        //     }
+        // }
 
         stage('Push Image') {
             steps {
+                sh 'docker login pawankumar34424.jfrog.io'
                 sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
             }
         }
