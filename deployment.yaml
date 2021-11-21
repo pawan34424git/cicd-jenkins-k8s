@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-world
+  namespace: my-dev
   labels:
     app: hello-world
 spec:
@@ -26,6 +27,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hello-world-service
+  namespace: my-dev
 spec:
   selector:
     app: hello-world
