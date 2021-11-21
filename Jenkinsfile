@@ -6,14 +6,13 @@ pipeline{
         IMAGE_TAG = 'jenkins'
     }
 
-    tools { 
-        maven 'maven' 
-        jdk 'JDK8' 
+    tools {
+        maven 'maven'
+        jdk 'JDK8'
         dockerTool 'docker'
     }
 
     stages {
-        
         stage ('Artifactory Configuration') {
             steps {
                 rtServer (
@@ -21,13 +20,12 @@ pipeline{
                     url: "https://pawankumar34424.jfrog.io/",
                     credentialsId: "a69e5c17-641b-4e43-83dc-eecf9bea8be0"
                 )
-                 rtMavenResolver (
+                rtMavenResolver (
                     id: 'maven-resolver',
                     serverId: 'https://testjfrogd.jfrog.io/',
                     releaseRepo: 'https://testjfrogd.jfrog.io/ui/admin/repositories/local/jenkins-release',
                     snapshotRepo: 'https://testjfrogd.jfrog.io/ui/admin/repositories/local/jenkins-snapshot'
-                )  
-                 
+                )
                 rtMavenDeployer (
                     id: 'maven-deployer',
                     serverId: 'https://testjfrogd.jfrog.io/',
@@ -39,34 +37,34 @@ pipeline{
             }
         }
 
-        // stage('Maven build') {
-        //     steps {
-        //         sh "mvn -Dmaven.test.skip=true clean install"
-        //     }
-        // }
+        stage('Maven build') {
+            steps {
+                sh "mvn -Dmaven.test.skip=true clean install"
+            }
+        }
 
-        // stage('Build Image') {
-        //     steps {
+        stage('Build Image') {
+            steps {
 
-        //         sh 'docker build -t "my-image:${IMAGE_TAG}" .'
-        //         sh 'docker tag "my-image:${IMAGE_TAG}" pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+                sh 'docker build -t "my-image:${IMAGE_TAG}" .'
+                sh 'docker tag "my-image:${IMAGE_TAG}" pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
 
-        //     }
-        // }
+            }
+        }
 
-        // stage('Push Image') {
-        //     steps {
-        //         sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
-        //     }
-        // }
+        stage('Push Image') {
+            steps {
+                sh 'docker push pawankumar34424.jfrog.io/default-docker-virtual/"my-image:${IMAGE_TAG}"'
+            }
+        }
 
         stage('Deploy Dev') {
             // input{
             //         message "Deploy to Dev?"
             //     }
             steps{
-                sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
-                sh 'chmod +x ./kubectl'
+                // sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+                // sh 'chmod +x ./kubectl'
                 sh './kubectl apply -f deployment.yaml'
             }
         }
