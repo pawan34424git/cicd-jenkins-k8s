@@ -65,15 +65,19 @@ pipeline{
             //         message "Deploy to Dev?"
             //     }
             steps{
-                withKubeConfig([credentialsId: 'user1']) {
-                    sh 'kubectl apply -f deployment.yaml'
+                if (fileExists('./kubectl')) {
+                    echo 'kubectl exists'
+                } else {
+                    sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+                    sh 'chmod +x ./kubectl'
                 }
+                sh './kubectl apply -f deployment.yaml'
             }
         }
     }
-    post {
-    always {
-        emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-			}
-	}
+    // post {
+    // always {
+    //     emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+	// 		}
+	// }
 } 
