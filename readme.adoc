@@ -80,3 +80,14 @@ curl http://`kubectl get svc hello-world-service -o jsonpath={.status.loadBalanc
 kubectl delete -f deployment.yaml
 ```
 
+kubectl create ingress demo-localhost --class=nginx \
+  --rule=demo.localdev.me/*=demo:80
+
+kubectl port-forward --namespace=my-dev service/hello-world-service 8888:8080
+
+
+kubectl create ingress demo  --class=nginx --rule www.demo.io/=hello-world-service:8080
+
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
+kubectl port-forward --namespace=my-dev service/ingress-nginx-controller 80:80
