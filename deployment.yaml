@@ -55,5 +55,7 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          serviceName: hello-world-service
-          servicePort: 8080
+          service:
+            name: hello-world-service
+            port:
+              number: 8080
